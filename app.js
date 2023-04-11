@@ -3,11 +3,11 @@ const multer = require("multer");
 
 const app = express();
 
-const storageConfig = multer.diskStorage({
-    destination: (req, file, cb) => {
+const storageConfig = multer.diskStorage({ // multer.diskStorage() принимает объект с двумя параметрами
+    destination: (req, file, cb) => {      // destination: определяет место для сохранения загруженных файлов
         cb(null, "uploads");
     },
-    filename: (req, file, cb) => {
+    filename: (req, file, cb) => {         // filename: определяет имя для загруженных файлов
         cb(null, file.originalname);
     }
 });
