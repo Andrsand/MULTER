@@ -12,9 +12,22 @@ const storageConfig = multer.diskStorage({ // multer.diskStorage() приним�
     }
 });
 
+// определение фильтра
+const fileFilter = (req, file, cb) => {
+
+    if (file.mimetype === "image/png" || // file.mimetype проверяет MIME-тип файла
+        file.mimetype === "image/jpg" ||
+        file.mimetype === "image/jpeg") {
+        cb(null, true);
+    }
+    else {
+        cb(null, false);
+    }
+}
+
 app.use(express.static(__dirname));
 
-app.use(multer({ storage: storageConfig }).single("filedata"));
+app.use(multer({ storage: storageConfig, fileFilter: fileFilter }).single("filedata"));
 app.post("/upload", function (req, res, next) {
 
     let filedata = req.file;
